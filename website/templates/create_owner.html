@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block style %}
+  <link rel="stylesheet" href="../static/css/create_owner.css">
+{% endblock %}
+
+{% block content %}
+<div class="container bootstrap snippets bootdeys">
+  <div class="row">
+    <div class="col-xs-12 col-sm-9">
+      <form class="form-horizontal" action="/owner?id={{owner.id}}" method="POST">
+          <div class="panel panel-default">
+            <div class="panel-body text-center">
+             <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="img-circle profile-avatar" alt="Owner avatar">
+            </div>
+          </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">Owner info</h4>
+          <input name="id" value="{{owner.id}}" type="hidden">
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Name</label>
+              <div class="col-sm-10">
+                <input type="name" name="name" value="{{owner.name}}" placeholder="Full Name" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Gender</label>
+              <div class="col-sm-10">
+                <select name="gender" class="form-control">
+                  <option selected="">Select gender</option>
+                  <option value="male" {% if  owner.gender == 'male' %} selected="" {% endif %}>Male</option>
+                  <option value="female" {% if  owner.gender == 'female' %} selected="" {% endif %}>Female</option>
+                  <option value="other" {% if  owner.gender == 'other' %} selected="" {% endif %}>Other</option>
+                </select>
+              </div>
+            </div>
+        </div>
+  
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">Contact info</h4>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Phone number</label>
+              <div class="col-sm-10">
+                <input type="tel" name="phone" value="{{owner.phone}}" placeholder="999999999" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">E-mail address</label>
+              <div class="col-sm-10">
+                <input type="email" name="email" value="{{owner.email}}" placeholder="example@email.com" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Address</label>
+              <div class="col-sm-10">
+                <textarea rows="3" name="address" class="form-control"> {% if owner.address != None %} {{owner.address}} {% endif %}</textarea>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-default">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  </div>
+{% endblock %}

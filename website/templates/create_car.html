@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block style %}
+  <link rel="stylesheet" href="../static/css/create_owner.css">
+{% endblock %}
+
+{% block content %}
+<div class="container bootstrap snippets bootdeys">
+  <div class="row">
+    <div class="col-xs-12 col-sm-9">
+      <form class="form-horizontal" action="/car?id={{car.id}}" method="POST">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          <h4 class="panel-title">Car info</h4>
+          <input name="id" value="{{owner.id}}" type="hidden">
+          </div>
+          <form id="create-car-modal-form">
+            <div class="form-group">
+              <input type="hidden" name="owner_id" value="{{owner.id}}">
+            </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Model</label>
+              <div class="col-sm-10">
+                <select name="model" class="form-control" required>
+                  <option disabled selected="">Select a model</option>
+                  {% for model in models %}
+                    <option {% if car.model_id == model.id %} selected="" {% endif %} value="{{model.id}}">{{model.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Color</label>
+              <div class="col-sm-10">
+                <select name="color" class="form-control" required>
+                  <option disabled selected="">Select a color</option>
+                  {% for color in colors %}
+                    <option {% if car.color_id == color.id %} selected="" {% endif %} value="{{color.id}}">{{color.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+              <button type="submit" class="btn btn-primary">Create</button>
+              <button type="reset" class="btn btn-default">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+{% endblock %}

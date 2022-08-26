@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="../static/css/home.css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3 mb-4">
+  <div class="col-lg-9 mt-4 mt-lg-0">
+      <div class="row justify-content-end">
+        <div class="col-md-3">
+          <a class="btn btn-primary" href="/owner" role="button">New Owner</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+              <thead>
+                <tr>
+                  <th>Owner Name</th>
+                  <th class="text-center">Number of Cars</th>
+                  <th class="action text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if pagination.total == 0 %}
+                <tr class="candidates-list">
+                  <td class="title">
+                    No Owner was found.
+                  </td>
+                </tr>
+                {% endif %}
+                {% for owner in pagination.items %}
+                  <tr class="candidates-list">
+                    <td class="title">
+                      <div class="thumb">
+                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                      </div>
+                      <div class="candidate-list-details">
+                        <div class="candidate-list-info">
+                          <div class="candidate-list-title">
+                            <h5 class="mb-0"><a href="/profile?id={{owner.id}}">{{owner.name}}</a></h5>
+                          </div>
+                          <div class="candidate-list-option">
+                            <ul class="list-unstyled">
+                              <li><i class="fas fa-filter pr-1"></i>{{owner.phone}}</li>
+                              <li><i class="fas fa-map-marker-alt pr-1"></i>{{owner.email}}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="candidate-list-favourite-time text-center">
+                      <span class="candidate-list-time order-1">{{ owner.car_number  }}</span>
+                    </td>
+                    <td>
+                      <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                        <li><a href="/owner?id={{owner.id}}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                        <li><a href="#" onclick="deleteOwner({{owner.id}});" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="text-center mt-3 mt-sm-3">
+              <ul class="pagination justify-content-center mb-0">
+                {% if pagination.has_prev %}
+                  <li class="page-item"> <a class="page-link" href="/?page={{pagination.prev_num}}">Prev</a> </li>
+                  <li class="page-item"><a class="page-link" href="/?page={{pagination.prev_num}}">{{pagination.prev_num}}</a></li>
+                {% else %}
+                  <li class="page-item disabled"> <span class="page-link">Prev</span> </li>
+                {% endif %}
+                
+                <li class="page-item active" aria-current="page"><span class="page-link">{{pagination.page}} </span> <span class="sr-only">(current)</span></li>
+                {% if pagination.has_next %}
+                  <li class="page-item"><a class="page-link" href="/?page={{pagination.next_num}}">{{pagination.next_num}}</a></li>
+                  <li class="page-item"> <a class="page-link" href="/?page={{pagination.next_num}}">Next</a> </li>
+                {% else %}
+                <li class="page-item disabled"> <span class="page-link">Next</span> </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

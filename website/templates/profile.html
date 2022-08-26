@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block style %}
+<link rel="stylesheet" href="../static/css/profile.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+          <div class="panel panel-white profile-widget">
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="image-container bg2">  
+                          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="avatar" alt="avatar"> 
+                      </div>
+                  </div>
+                  <div class="col-sm-12">
+                      <div class="details">
+                          <h4> {{owner.name}} <i class="fa fa-sheild"></i></h4>
+                          <div>{{owner.email}}</div>
+                          <div>{{owner.phone}}</div>
+                          <div>{{owner.address}}</div> 
+                          <div class="mg-top-10">
+                              <a href="/owner?id={{owner.id}}" class="btn btn-green">Edit Owner</a>
+                              <a href="#" onclick="deleteOwner({{owner.id}});" class="btn btn-red">Delete Owner</a>
+                          </div>
+                      </div>
+                  </div>
+  
+              </div>
+          </div>
+          
+          <div class="row">
+              
+            <div class="col">
+                <div class="panel-body"> 
+                    <div class="body-section mb-4">
+                        <h5 class="section-heading">Number of cars</h5>
+                        <p class="section-content">{{3-sales_opportunity}}</p>
+                    </div>
+                    <div class="body-section mb-4">
+                        <h5 class="section-heading">Cars</h5>
+                        {% for car in owner.cars %}
+                          <div class="section-content row">
+                            <div class="col-2">{{car.model.name}}</div>
+                            <div class="col-2">{{car.color.name}}</div>
+                            <div class="col-2">
+                              <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                                <li><a href="/car?id={{car.id}}&owner_id={{owner.id}}" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
+                                <li><a href="#" onclick="deleteCar({{car.id}}, {{owner.id}});" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                              </ul>
+                              
+                            </div>
+                          </div>
+                        {% endfor %}
+                        {% if sales_opportunity == 3 %}
+                          This person does not own a car.
+                        {% endif %}
+                    </div>
+                    <div class="body-section mb-4">
+                        <h5 class="section-heading">Sales opportunity</h5>
+                        <p class="section-content">{{sales_opportunity}}</p>
+                    </div> 
+
+                    <div class="body-section mb-4">
+                      {% if sales_opportunity > 0 %}
+                        <a href="/car?owner_id={{owner.id}}" class="btn btn-primary" >New Car</a>
+                      {% endif %}
+                    </div>
+                    
+                </div>
+              </div>
+            </div>
+                  
+              </div>
+              
+          </div>
+  </div>
+{% endblock %}
+
